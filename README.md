@@ -1,10 +1,6 @@
-
-```markdown
 # 🌍 Global Country Explorer
 
 A modern, responsive web application built with Node.js, Express, and EJS that allows users to explore comprehensive information about countries worldwide. The application features an intuitive search interface with modal views for detailed country data.
-
-
 
 ## ✨ Features
 
@@ -48,7 +44,6 @@ Each country profile includes:
 - **Icons**: Font Awesome for beautiful iconography
 - **Fonts**: Google Fonts (Inter family)
 
-
 ## 🌐 API Integration
 
 This application uses the [REST Countries API](https://restcountries.com/) to fetch real-time country data. The API provides:
@@ -64,23 +59,3 @@ The application is fully responsive and optimized for:
 - 🖥️ **Desktop**: Full-width layouts with multi-column grids
 - 📱 **Mobile**: Single-column layouts with touch-friendly interactions
 - 📟 **Tablet**: Optimized middle-ground experience
-
-## 🎯 Usage Examples
-
-### Search by Country Name
-```
-Type: "United States" or "USA"
-Result: Shows United States with full details
-```
-
-### Search by Capital
-```
-Type: "Paris"
-Result: Shows France and other countries with Paris as capital
-```
-
-### Search by Region
-```
-Type: "Europe"
-Result: Shows all European countries in a grid layout
-```
