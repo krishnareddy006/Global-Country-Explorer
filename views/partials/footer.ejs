@@ -1,0 +1,286 @@
+    <!-- Footer Section -->
+    <footer id="footer" class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <!-- Contact Form Section -->
+                <div class="contact-section">
+                    <h3><i class="fas fa-paper-plane"></i> Contact Us</h3>
+                    
+                    <% if (typeof contactSuccess !== 'undefined' && contactSuccess) { %>
+                        <div class="success-alert">
+                            <i class="fas fa-check-circle"></i>
+                            <span><%= contactSuccess %></span>
+                        </div>
+                    <% } %>
+                    
+                    <form action="/contact" method="POST" class="contact-form">
+                        <input type="text" name="name" placeholder="Your Name" class="form-input-small" required>
+                        <input type="email" name="email" placeholder="Your Email" class="form-input-small" required>
+                        <textarea name="message" placeholder="Your Message" class="form-textarea-small" rows="3" required></textarea>
+                        <button type="submit" class="submit-btn-small">
+                            <i class="fas fa-send"></i>
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Social Media Section -->
+                <div class="social-section">
+                    <h3><i class="fas fa-share-alt"></i> Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="https://github.com/krishnareddy006" target="_blank" class="social-icon" title="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/saikamkrishnareddy/" target="_blank" class="social-icon" title="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://www.instagram.com/krishna_reddy_006" target="_blank" class="social-icon" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Global Country Explorer. All rights reserved.</p>
+                <p>Discover comprehensive country information from around the world</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Country Modal -->
+    <div id="countryModal" class="country-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="modalBody" class="modal-body">
+                <!-- Modal content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scroll to footer
+        function scrollToFooter(event) {
+            if (event) event.preventDefault();
+            document.getElementById('footer').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Modal functionality
+        async function openCountryModal(countryName) {
+            const modal = document.getElementById('countryModal');
+            const overlay = document.getElementById('modalOverlay');
+            const modalBody = document.getElementById('modalBody');
+            
+            try {
+                // Show loading
+                modalBody.innerHTML = `
+                    <div class="modal-loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Loading country details...</p>
+                    </div>
+                `;
+                
+                // Show modal and blur background
+                modal.classList.add('active');
+                overlay.classList.add('active');
+                document.body.classList.add('modal-open');
+                
+                // Fetch country data
+                const response = await fetch(`/view/${encodeURIComponent(countryName)}`);
+                const data = await response.json();
+                
+                if (data.success && data.country) {
+                    modalBody.innerHTML = generateModalContent(data.country);
+                } else {
+                    modalBody.innerHTML = `
+                        <div class="modal-error">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <p>Failed to load country details</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                modalBody.innerHTML = `
+                    <div class="modal-error">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>Error loading country details</p>
+                    </div>
+                `;
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('countryModal');
+            const overlay = document.getElementById('modalOverlay');
+            
+            modal.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.classList.remove('modal-open');
+        }
+
+        function generateModalContent(country) {
+            return `
+                <div class="modal-header">
+                    ${country.flag ? `<img src="${country.flag}" alt="${country.name} Flag" class="modal-flag">` : ''}
+                    <div class="modal-title">
+                        <h2>${country.name}</h2>
+                        <p class="modal-subtitle">${country.officialName}</p>
+                    </div>
+                </div>
+                
+                <div class="modal-info-grid">
+                    <div class="modal-info-item">
+                        <i class="fas fa-city"></i>
+                        <div>
+                            <span class="modal-label">Capital</span>
+                            <span class="modal-value">${country.capital}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-info-item">
+                        <i class="fas fa-globe-americas"></i>
+                        <div>
+                            <span class="modal-label">Region</span>
+                            <span class="modal-value">${country.region}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-info-item">
+                        <i class="fas fa-map"></i>
+                        <div>
+                            <span class="modal-label">Subregion</span>
+                            <span class="modal-value">${country.subregion}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-info-item">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                        <div>
+                            <span class="modal-label">Area</span>
+                            <span class="modal-value">${country.area}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-info-item">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <span class="modal-label">Population</span>
+                            <span class="modal-value">${country.population}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-info-item">
+                        <i class="fas fa-language"></i>
+                        <div>
+                            <span class="modal-label">Languages</span>
+                            <span class="modal-value">${country.languages}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-info-item">
+                        <i class="fas fa-coins"></i>
+                        <div>
+                            <span class="modal-label">Currencies</span>
+                            <span class="modal-value">${country.currencies}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-info-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <span class="modal-label">Timezones</span>
+                            <span class="modal-value">${country.timezones}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-info-item">
+                        <i class="fas fa-border-all"></i>
+                        <div>
+                            <span class="modal-label">Borders</span>
+                            <span class="modal-value">${country.borders}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <span class="modal-label">Coordinates</span>
+                            <span class="modal-value">${country.latlng}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-info-item">
+                        <i class="fas fa-font"></i>
+                        <div>
+                            <span class="modal-label">Native Name</span>
+                            <span class="modal-value">${country.nativeName}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-info-item">
+                        <i class="fas fa-link"></i>
+                        <div>
+                            <span class="modal-label">Top-Level Domain</span>
+                            <span class="modal-value">${country.topLevelDomain}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-info-item">
+                        <i class="fas fa-code-branch"></i>
+                        <div>
+                            <span class="modal-label">Alpha3 Code</span>
+                            <span class="modal-value">${country.alpha3Code}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <span class="modal-label">Calling Code</span>
+                            <span class="modal-value">${country.callingCodes}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Close modal when clicking overlay
+        document.addEventListener('click', function(event) {
+            const modal = document.getElementById('countryModal');
+            const overlay = document.getElementById('modalOverlay');
+            
+            if (event.target === overlay) {
+                closeModal();
+            }
+        });
+
+        // Close modal with escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navMenu = document.querySelector('.nav-menu');
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (!navMenu.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

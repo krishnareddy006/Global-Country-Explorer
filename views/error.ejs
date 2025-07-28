@@ -1,0 +1,38 @@
+<%- include('partials/header') %>
+
+<!-- Main Content -->
+<main class="main-content">
+    <div class="error-container">
+        <div class="error-content">
+            <div class="error-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            
+            <h1 class="error-title">Oops! Something went wrong</h1>
+            
+            <p class="error-message"><%= error %></p>
+            
+            <div class="error-actions">
+                <a href="/" class="btn-primary">
+                    <i class="fas fa-home"></i>
+                    Return to Home
+                </a>
+                <button onclick="history.back()" class="btn-secondary">
+                    <i class="fas fa-arrow-left"></i>
+                    Go Back
+                </button>
+            </div>
+            
+            <div class="error-suggestions">
+                <h3>What you can try:</h3>
+                <ul>
+                    <li>Check your spelling and try again</li>
+                    <li>Return to the homepage and start over</li>
+                    <li>Contact us if the problem persists</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('partials/footer') %>
