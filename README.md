@@ -84,34 +84,3 @@ Result: Shows France and other countries with Paris as capital
 Type: "Europe"
 Result: Shows all European countries in a grid layout
 ```
-
-
-
-
-## Short Description for GitHub Repository
-
-Here's a concise description you can use for your GitHub repository:
-
-```
-🌍 Modern, responsive country explorer web app built with Node.js, Express & EJS. Features smart search (country/capital/region), interactive modal details, and comprehensive country data from REST Countries API. Clean UI with glassmorphism design.
-```
-
-## Repository Topics/Tags
-
-Add these topics to your GitHub repository for better discoverability:
-
-```
-nodejs express ejs javascript country-data rest-api responsive-design web-application geography countries world-data search-engine modal-interface glassmorphism modern-ui backend-development frontend-development
-```
-
-This README provides:
-- Clear project description and features
-- Easy installation instructions
-- Technology stack overview
-- Project structure explanation
-- Usage examples
-- Contributing guidelines
-- Professional formatting with emojis and badges
-- Contact information section
-
-You can customize the GitHub username, email, and other personal details to match your profile!
