@@ -46,7 +46,7 @@ Each country profile includes:
 
 ## 🌐 API Integration
 
-This application uses the [REST Countries API](https://restcountries.com/) to fetch real-time country data. The API provides:
+This application uses the [REST Countries API]([https://countrylayer.com/]) to fetch real-time country data. The API provides:
 
 - **Global Coverage**: 250+ countries and territories
 - **Rich Dataset**: Comprehensive geographic, demographic, and political data
